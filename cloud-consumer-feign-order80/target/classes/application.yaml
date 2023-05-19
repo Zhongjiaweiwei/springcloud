@@ -1,0 +1,38 @@
+server:
+  port: 80
+
+#配置主程序名称
+spring:
+  application:
+    name: cloud-order-server
+
+#配置eureka服务端
+eureka:
+  client:
+    register-with-eureka: true #设置为false表示不向注册中心注册自己
+    fetch-registry: true #false表示自己就是注册中心，职责是维护服务实例，并不需要去检索服务
+    service-url:
+      #设置与eureka server交互的地址查询服务和注册服务都需要依赖这个地址
+      #defaultZone: http://localhost:7001/eureka/ #单机模式
+      #集群模式
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
+  instance:
+    instance-id: order80
+    prefer-ip-address: true
+#设置feign客户端的超时时间
+ribbon:
+  ReadTimeout: 5000 #连接后读取资源时间
+  ConnectTimeout: 5000 #连接时间
+#idea现在一般推荐用feign做配置
+#feign:
+#  client:
+#    config:
+#      default:
+#        connectTimeout: 10000
+#        readTimeout: 600000
+
+#feign日志
+logging:
+  level:
+    #feign日志以什么级别监控哪个接口
+    com.zjw.springcloud.service.PaymentFeignService: debug

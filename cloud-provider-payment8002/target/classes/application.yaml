@@ -1,0 +1,35 @@
+#配置端口号
+server:
+  port: 8002
+
+#配置主程序名称
+spring:
+  application:
+    name: cloud-payment-server
+  #配置数据源
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springcloud?serverTimezone=UTC
+    username: root
+    password: 123456
+
+#配置mybatis
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  #类型别名
+  type-aliases-package: com.zjw.springcloud.entities
+
+#配置eureka服务端
+eureka:
+  client:
+    register-with-eureka: true #设置为false表示不向注册中心注册自己
+    fetch-registry: true #false表示自己就是注册中心，职责是维护服务实例，并不需要去检索服务
+    service-url:
+      #设置与eureka server交互的地址查询服务和注册服务都需要依赖这个地址
+      defaultZone: http://localhost:7001/eureka/ #单机模式
+      #集群模式
+      #defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
+  instance:
+    instance-id: payment8002 #修改主机名
+    prefer-ip-address: true #访问路径可以显示ip地址
